@@ -74,7 +74,7 @@ class Login extends React.Component {
                 </div>
                 <div>
                     password:
-                    <input value={this.state.password} onChange={(event) => {
+                    <input type={"password"} value={this.state.password} onChange={(event) => {
                         this.inputChange(event, "password")
                     }}/>
                 </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-
+const UPDATE_TABLE_TIME = 31000;
 class Table extends React.Component {
     state ={
         teamsName:["",
@@ -119,7 +119,7 @@ class Table extends React.Component {
                         teamsPoint: tablePoint
                     })
         })
-        }, 31000);
+        }, UPDATE_TABLE_TIME);
     }
 
     componentDidMount() {

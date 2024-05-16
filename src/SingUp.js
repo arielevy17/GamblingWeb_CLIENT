@@ -2,6 +2,7 @@
 import React from "react";
 import axios from "axios";
 import {BrowserRouter,Routes,Route,NavLink} from "react-router-dom";
+const PASSWORD_LENGTH=9;
 
 
 
@@ -23,7 +24,7 @@ class SingUp extends React.Component {
     }
     passwordValidation=(password)=>{
         let ans=false;
-        if ((password.length>=9)){ // הוספת תנאי מכיל מספר ואות
+        if ((password.length>=PASSWORD_LENGTH)){ // הוספת תנאי מכיל מספר ואות
             ans=true;
         }
         return ans;
@@ -72,7 +73,7 @@ class SingUp extends React.Component {
                 </div>
                 <div>
                     password:
-                    <input value={this.state.password} onChange={(event) => {
+                    <input type={"password"} value={this.state.password} onChange={(event) => {
                         this.inputChange(event, "password")
                     }}/>
                 </div>

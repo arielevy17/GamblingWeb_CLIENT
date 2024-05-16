@@ -6,21 +6,52 @@ const GAME_ONE_ID='1';
 const GAME_TWO_ID='2';
 const GAME_THREE_ID='3';
 const GAME_FOUR_ID='4';
+const GAME_ONE_CASE=1;
+const GAME_TWO_CASE=2;
+const GAME_THREE_CASE=3;
+const GAME_FOUR_CASE=4;
+const ALL_GAME_NUMBER=4;
+const GAME_TIME=30000;
+const UPDATE_TIME=3000;
+const START_NULL_VALUE=-1;
+const START_DEAFULT_BET='?';
+const START_DEAFULT_GOALLES=0;
+const START_DEAFULT_BALANCE=0;
+const START_DEAFULT_CYCLE=1;
+const NUMBER_AFTER_POINT=2;
+const HOME_TEAM_INDEX=0;
+const HOME_TEAM_BET_RATIO_INDEX=1;
+const GUEST_TEAM_INDEX=2;
+const GUEST_TEAM_BET_RATIO_INDEX=3;
+const DRAW_BET_RATIO_INDEX=4;
+const BET_VALUE_INDEX=5;
+const DID_USER_BET_ON_THIS_GAME_INDEX=6;
+const HOME_GOALLES_NUMBER_INDEX=7;
+const GUST_GOALLES_NUMBER_INDEX=8;
+const HOME_BET_CHOSE='1';
+const GUEST_BET_CHOSE='2';
+const DRAW_BET_CHOSE='x';
+const NO_ERRORS = 0;
+const START_BET_VALUE = 0;
+
+
+
+
+
 
 
 class GamesAndBettes extends React.Component {
     state = {
         gameBegine:false,
-        cycleNumber:1,
+        cycleNumber:START_DEAFULT_CYCLE,
         gameEnding:false,
         betTime:true,
         user: {},
-        minute:-1,
-        id:-1,
-        balance: -1,
+        minute:START_NULL_VALUE,
+        id:START_NULL_VALUE,
+        balance: START_DEAFULT_BALANCE,
         error1:"",
-        betChar1:'?',
-        CycleIsOver:0,
+        betChar1:START_DEAFULT_BET,
         massageFromServer1:"",
         game1:[
             "", // שם קבוצה 1
@@ -28,55 +59,55 @@ class GamesAndBettes extends React.Component {
             "", //  שם קבוצה 2
             "", //יחס ניצחון קבוצה 2
             "" , // יחס תיקו
-            '',  // סכום הימור על משחק ראשון
+            START_BET_VALUE,  // סכום הימור על משחק ראשון
             false ,// האם נעשה הימור על המשחק
-            0, // גולים מארחים
-            0 // גולים אורחים
+            START_DEAFULT_GOALLES, // גולים מארחים
+            START_DEAFULT_GOALLES // גולים אורחים
         ],
 
         massageFromServer2:"",
         error2:"",
-        betChar2:'?',
+        betChar2:START_DEAFULT_BET,
         game2:[
             "", // שם קבוצה 1
             "",  // יחס ניצחון קבוצה 1
             "", //  שם קבוצה 2
             "", //יחס ניצחון קבוצה 2
             "" , // יחס תיקו
-            '',  // סכום הימור על משחק ראשון
+            START_BET_VALUE,  // סכום הימור על משחק ראשון
             false ,// האם נעשה הימור על המשחק
-            0, // גולים מארחים
-            0 // גולים אורחים
+            START_DEAFULT_GOALLES, // גולים מארחים
+            START_DEAFULT_GOALLES // גולים אורחים
         ],
 
         massageFromServer3:"",
         error3:"",
-        betChar3:'?',
+        betChar3:START_DEAFULT_BET,
         game3:[
             "", // שם קבוצה 1
             "",  // יחס ניצחון קבוצה 1
             "", //  שם קבוצה 2
             "", //יחס ניצחון קבוצה 2
             "" , // יחס תיקו
-            '',  // סכום הימור על משחק ראשון
+            START_BET_VALUE,  // סכום הימור על משחק ראשון
             false ,// האם נעשה הימור על המשחק
-            0, // גולים מארחים
-            0 // גולים אורחים
+            START_DEAFULT_GOALLES, // גולים מארחים
+            START_DEAFULT_GOALLES // גולים אורחים
         ],
 
         massageFromServer4:"",
         error4:"",
-        betChar4:'?',
+        betChar4:START_DEAFULT_BET,
         game4:[
             "", // שם קבוצה 1
             "",  // יחס ניצחון קבוצה 1
             "", //  שם קבוצה 2
             "", //יחס ניצחון קבוצה 2
             "" , // יחס תיקו
-            '',  // סכום הימור על משחק ראשון
+            START_BET_VALUE,  // סכום הימור על משחק ראשון
             false ,// האם נעשה הימור על המשחק
-            0, // גולים מארחים
-            0 ,// גולים אורחים
+            START_DEAFULT_GOALLES, // גולים מארחים
+            START_DEAFULT_GOALLES ,// גולים אורחים
         ],
     }
 
@@ -91,7 +122,7 @@ class GamesAndBettes extends React.Component {
         debugger
         const value = event.target.value;
         const gameTemp1= this.state.game1
-        gameTemp1[5] = value;
+        gameTemp1[BET_VALUE_INDEX] = value;
         this.setState({
             game1:gameTemp1
         })
@@ -100,7 +131,7 @@ class GamesAndBettes extends React.Component {
     inputGame2Change=(event)=> {
         const value = event.target.value;
         const gameTemp2= this.state.game2
-        gameTemp2[5] = value;
+        gameTemp2[BET_VALUE_INDEX] = value;
         this.setState({
             game2:gameTemp2
         })
@@ -109,7 +140,7 @@ class GamesAndBettes extends React.Component {
     inputGame3Change=(event)=> {
         const value = event.target.value;
         const gameTemp3= this.state.game3
-        gameTemp3[5] = value;
+        gameTemp3[BET_VALUE_INDEX] = value;
         this.setState({
             game3:gameTemp3
         })
@@ -118,7 +149,7 @@ class GamesAndBettes extends React.Component {
     inputGame4Change=(event)=> {
         const value = event.target.value;
         const gameTemp4= this.state.game4
-        gameTemp4[5] = value;
+        gameTemp4[BET_VALUE_INDEX] = value;
         this.setState({
             game4:gameTemp4
         })
@@ -169,7 +200,7 @@ class GamesAndBettes extends React.Component {
         axios.get("http://localhost:9124/get_balance_for_user")
             .then((response) => {
                 this.setState({
-                    balance: response.data.toFixed(2)
+                    balance: response.data.toFixed(NUMBER_AFTER_POINT)
                 })
             });
     }
@@ -177,27 +208,27 @@ class GamesAndBettes extends React.Component {
 
     //  משלים ע"פ הקבוצות בstate את פרטי ההימורים בינהם
     getBetDetails =(id)=>{
-        if (id==='1'){
+        if (id===GAME_ONE_ID){
             const game =this.state.game1;
-            game[6]=true; //***
+            game[DID_USER_BET_ON_THIS_GAME_INDEX]=true;
             this.setState({
                 game1:game
             })
-        } else if (id==='2'){
+        } else if (id===GAME_TWO_ID){
             const game =this.state.game2;
-            game[6]=true; //***
+            game[DID_USER_BET_ON_THIS_GAME_INDEX]=true;
             this.setState({
                 game2:game
             })
-        } else if (id==='3'){
+        } else if (id===GAME_THREE_ID){
             const game =this.state.game3;
-            game[6]=true; //***
+            game[DID_USER_BET_ON_THIS_GAME_INDEX]=true;
             this.setState({
                 game3:game
             })
-        } else if (id==='4'){
+        } else if (id===GAME_FOUR_ID){
             const game =this.state.game4;
-            game[6]=true; //***
+            game[DID_USER_BET_ON_THIS_GAME_INDEX]=true;
             this.setState({
                 game4:game
             })
@@ -208,19 +239,19 @@ class GamesAndBettes extends React.Component {
         const interval = setInterval(() => {
             axios.get("http://localhost:9124/get_season_games")
                 .then((response) => {
-
-                    const betHome1 = response.data.game1.betRatioHome.toFixed(2);
-                    const betGuest1 = response.data.game1.betRatioGuest.toFixed(2);
-                    const betDraw1 = response.data.game1.betRatioDraw.toFixed(2);
-                    const betHome2 = response.data.game2.betRatioHome.toFixed(2);
-                    const betGuest2 = response.data.game2.betRatioGuest.toFixed(2);
-                    const betDraw2 = response.data.game2.betRatioDraw.toFixed(2);
-                    const betHome3 = response.data.game3.betRatioHome.toFixed(2);
-                    const betGuest3 = response.data.game3.betRatioGuest.toFixed(2);
-                    const betDraw3 = response.data.game3.betRatioDraw.toFixed(2);
-                    const betHome4 = response.data.game4.betRatioHome.toFixed(2);
-                    const betGuest4 = response.data.game4.betRatioGuest.toFixed(2);
-                    const betDraw4 = response.data.game4.betRatioDraw.toFixed(2);
+debugger
+                    const betHome1 = response.data.game1.betRatioHome.toFixed(NUMBER_AFTER_POINT);
+                    const betGuest1 = response.data.game1.betRatioGuest.toFixed(NUMBER_AFTER_POINT);
+                    const betDraw1 = response.data.game1.betRatioDraw.toFixed(NUMBER_AFTER_POINT);
+                    const betHome2 = response.data.game2.betRatioHome.toFixed(NUMBER_AFTER_POINT);
+                    const betGuest2 = response.data.game2.betRatioGuest.toFixed(NUMBER_AFTER_POINT);
+                    const betDraw2 = response.data.game2.betRatioDraw.toFixed(NUMBER_AFTER_POINT);
+                    const betHome3 = response.data.game3.betRatioHome.toFixed(NUMBER_AFTER_POINT);
+                    const betGuest3 = response.data.game3.betRatioGuest.toFixed(NUMBER_AFTER_POINT);
+                    const betDraw3 = response.data.game3.betRatioDraw.toFixed(NUMBER_AFTER_POINT);
+                    const betHome4 = response.data.game4.betRatioHome.toFixed(NUMBER_AFTER_POINT);
+                    const betGuest4 = response.data.game4.betRatioGuest.toFixed(NUMBER_AFTER_POINT);
+                    const betDraw4 = response.data.game4.betRatioDraw.toFixed(NUMBER_AFTER_POINT);
 
                     let homeGoalls1 = response.data.game1.homeGoalles;
                     let guestGoalls1 = response.data.game1.guestGoalles;
@@ -239,10 +270,10 @@ class GamesAndBettes extends React.Component {
                     let massageFromServer4= "";
 
                     if(response.data.game4.gameWasBegin && !response.data.game4.gameIsOver) {
-                        massageFromServer1 = "Result is:  " + this.state.game1[0] +" : "+ homeGoalls1 + "   |   " + this.state.game1[2] +" : "+ guestGoalls1;
-                        massageFromServer2 = "Result is:  " + this.state.game2[0] +" : "+ homeGoalls2 + "   |   " + this.state.game2[2] +" : "+ guestGoalls2;
-                        massageFromServer3 = "Result is:  " + this.state.game3[0] +" : "+ homeGoalls3 + "   |   " + this.state.game3[2]+" : " + guestGoalls3;
-                        massageFromServer4 = "Result is:  " + this.state.game4[0] +" : "+ homeGoalls4 + "   |   " + this.state.game4[2] +" : "+ guestGoalls4;
+                        massageFromServer1 = "Result is:  " + this.state.game1[HOME_TEAM_INDEX] +" : "+ homeGoalls1 + "   |   " + this.state.game1[GUEST_TEAM_INDEX] +" : "+ guestGoalls1;
+                        massageFromServer2 = "Result is:  " + this.state.game2[HOME_TEAM_INDEX] +" : "+ homeGoalls2 + "   |   " + this.state.game2[GUEST_TEAM_INDEX] +" : "+ guestGoalls2;
+                        massageFromServer3 = "Result is:  " + this.state.game3[HOME_TEAM_INDEX] +" : "+ homeGoalls3 + "   |   " + this.state.game3[GUEST_TEAM_INDEX]+" : " + guestGoalls3;
+                        massageFromServer4 = "Result is:  " + this.state.game4[HOME_TEAM_INDEX] +" : "+ homeGoalls4 + "   |   " + this.state.game4[GUEST_TEAM_INDEX] +" : "+ guestGoalls4;
                     } else if(!response.data.game4.gameWasBegin && response.data.game4.gameIsOver) {
                         massageFromServer1 = this.state.massageFromServer1;
                         massageFromServer2 = this.state.massageFromServer2;
@@ -260,10 +291,10 @@ class GamesAndBettes extends React.Component {
                     const home4 = response.data.game4.home.name;
                     const guest4 = response.data.game4.guest.name;
 
-                    const game1=[home1,betHome1,guest1,betGuest1,betDraw1,this.state.game1[5],this.state.game1[6],homeGoalls1,guestGoalls1];
-                    const game2=[home2,betHome2,guest2,betGuest2,betDraw2,this.state.game2[5],this.state.game2[6],"",homeGoalls2,guestGoalls2];
-                    const game3=[home3,betHome3,guest3,betGuest3,betDraw3,this.state.game3[5],this.state.game3[6],"",homeGoalls3,guestGoalls3];
-                    const game4=[home4,betHome4,guest4,betGuest4,betDraw4,this.state.game4[5],this.state.game4[6],"",homeGoalls4,guestGoalls4];
+                    const game1=[home1,betHome1,guest1,betGuest1,betDraw1,this.state.game1[BET_VALUE_INDEX],this.state.game1[DID_USER_BET_ON_THIS_GAME_INDEX],homeGoalls1,guestGoalls1];
+                    const game2=[home2,betHome2,guest2,betGuest2,betDraw2,this.state.game2[BET_VALUE_INDEX],this.state.game2[DID_USER_BET_ON_THIS_GAME_INDEX],"",homeGoalls2,guestGoalls2];
+                    const game3=[home3,betHome3,guest3,betGuest3,betDraw3,this.state.game3[BET_VALUE_INDEX],this.state.game3[DID_USER_BET_ON_THIS_GAME_INDEX],"",homeGoalls3,guestGoalls3];
+                    const game4=[home4,betHome4,guest4,betGuest4,betDraw4,this.state.game4[BET_VALUE_INDEX],this.state.game4[DID_USER_BET_ON_THIS_GAME_INDEX],"",homeGoalls4,guestGoalls4];
 
 
                     this.setState({ // שליחת גולים למחזור הקודם
@@ -280,14 +311,14 @@ class GamesAndBettes extends React.Component {
                         game4: game4
                     });
                 });
-                }, 3000);
+                }, UPDATE_TIME);
         }
 
 
 
     startGames = () => { // מחזיר ומזין בstate את הקבוצות
         debugger
-        if (this.state.cycleNumber < 4) {
+        if (this.state.cycleNumber < ALL_GAME_NUMBER) {
             axios.get("http://localhost:9124/get_game_golles")
                 .then((response) => {
 
@@ -300,7 +331,7 @@ class GamesAndBettes extends React.Component {
     startSeason = ()=> {
         debugger
             const interval = setInterval(() => {
-                if (this.state.cycleNumber <= 4) { //   בכל דקה יש 30 שניות להימור 30 שניות למשחק (שבזמן הזה אסור להמר)
+                if (this.state.cycleNumber <= ALL_GAME_NUMBER) { //   בכל דקה יש 30 שניות להימור 30 שניות למשחק (שבזמן הזה אסור להמר)
                     let betTime = !this.state.betTime;
                     this.setState({
                         betTime: betTime
@@ -313,15 +344,15 @@ class GamesAndBettes extends React.Component {
                     if (!betTime) {
                         this.startGames();
                         //  חסימת אופציה להימורים נוספים
-                        game1[6] = true;
-                        game2[6] = true;
-                        game3[6] = true;
-                        game4[6] = true;
+                        game1[DID_USER_BET_ON_THIS_GAME_INDEX] = true;
+                        game2[DID_USER_BET_ON_THIS_GAME_INDEX] = true;
+                        game3[DID_USER_BET_ON_THIS_GAME_INDEX] = true;
+                        game4[DID_USER_BET_ON_THIS_GAME_INDEX] = true;
                     } else {
-                        game1[6] = false;
-                        game2[6] = false;
-                        game3[6] = false;
-                        game4[6] = false;
+                        game1[DID_USER_BET_ON_THIS_GAME_INDEX] = false;
+                        game2[DID_USER_BET_ON_THIS_GAME_INDEX] = false;
+                        game3[DID_USER_BET_ON_THIS_GAME_INDEX] = false;
+                        game4[DID_USER_BET_ON_THIS_GAME_INDEX] = false;
                     }
                         this.setState({
                             game1: game1,
@@ -330,7 +361,7 @@ class GamesAndBettes extends React.Component {
                             game4: game4
                         })
                     }
-                },30000);
+                },GAME_TIME);
     }
 
     sendBet =(gameId)=>{
@@ -340,45 +371,45 @@ class GamesAndBettes extends React.Component {
             let error;
             let gameTemp;
             switch (gameId){
-                case 1:
+                case GAME_ONE_CASE:
                     betChar = this.state.betChar1;
-                    betAmount=this.state.game1[5];
+                    betAmount=this.state.game1[BET_VALUE_INDEX];
                     gameTemp = this.state.game1;
                     break;
-                case 2:
+                case GAME_TWO_CASE:
                     betChar = this.state.betChar2;
-                    betAmount=this.state.game2[5];
+                    betAmount=this.state.game2[BET_VALUE_INDEX];
                     gameTemp = this.state.game2;
                     break;
-                case 3:
+                case GAME_THREE_CASE:
                     betChar = this.state.betChar3;
-                    betAmount=this.state.game3[5];
+                    betAmount=this.state.game3[BET_VALUE_INDEX];
                     gameTemp = this.state.game3;
                     break;
-                case 4:
+                case GAME_FOUR_CASE:
                     betChar = this.state.betChar4;
-                    betAmount=this.state.game4[5];
+                    betAmount=this.state.game4[BET_VALUE_INDEX];
                     gameTemp = this.state.game4;
                     break;
             }
-            gameTemp[6] = true; // בוצע הימור על המשחק
+            gameTemp[DID_USER_BET_ON_THIS_GAME_INDEX] = true; // בוצע הימור על המשחק
             switch (gameId){
-                case 1:
+                case GAME_ONE_CASE:
                     this.setState({
                         game1: gameTemp,
                     })
                     break;
-                case 2:
+                case GAME_TWO_CASE:
                     this.setState({
                         game2: gameTemp,
                     })
                     break;
-                case 3:
+                case GAME_THREE_CASE:
                     this.setState({
                         game3: gameTemp,
                     })
                     break;
-                case 4:
+                case GAME_FOUR_CASE:
                     this.setState({
                         game4: gameTemp,
                     })
@@ -393,58 +424,58 @@ class GamesAndBettes extends React.Component {
                 }
             }).then((response) => {
                 debugger
-                if (response.data.errorCode > 0) {
+                if (response.data.errorCode > NO_ERRORS) {
                     switch (gameId) {
-                        case 1:
+                        case GAME_ONE_CASE:
                             this.setState({
                                 error1: "somthing wrong, Error Code: " + response.data.errorCode,
 
                             })
                             break;
-                        case 2:
+                        case GAME_TWO_CASE:
                             this.setState({
                                 error2: "somthing wrong, Error Code: " + response.data.errorCode
                             })
                             break;
-                        case 3:
+                        case GAME_THREE_CASE:
                             this.setState({
                                 error3: "somthing wrong, Error Code: " + response.data.errorCode
                             })
                             break;
-                        case 4:
+                        case GAME_FOUR_CASE:
                             this.setState({
                                 error4: "somthing wrong, Error Code: " + response.data.errorCode
                             })
                             break;
                     }
                 }
-                gameTemp[5] = " "; // איפוס התוכן באינפוט
-                gameTemp[6] = false;
+                gameTemp[BET_VALUE_INDEX] = 0; // איפוס התוכן באינפוט
+                gameTemp[DID_USER_BET_ON_THIS_GAME_INDEX] = false;
 
                 switch (gameId){
-                    case 1:
+                    case GAME_ONE_CASE:
                         this.setState({
                             game1: gameTemp,
                         })
                         break;
-                    case 2:
+                    case GAME_TWO_CASE:
                         this.setState({
                             game2: gameTemp,
                         })
                         break;
-                    case 3:
+                    case GAME_THREE_CASE:
                         this.setState({
                             game3: gameTemp,
                         })
                         break;
-                    case 4:
+                    case GAME_FOUR_CASE:
                         this.setState({
                             game4: gameTemp,
                         })
                         break;
                 }
                 this.setState({
-                    balance: response.data.balance,
+                    balance: response.data.balance.toFixed(NUMBER_AFTER_POINT),
                 })
             });
         }
@@ -458,38 +489,38 @@ class GamesAndBettes extends React.Component {
             <div>
                 <div id={"balance"}>
                     balance:
-                    {this.state.balance.toFixed(2)}
+                    {this.state.balance}
                     <br/>
                         cycle number:
                         {this.state.cycleNumber}
                 </div>
-                <button disabled={this.state.game1[6]} onClick={()=>{this.getBetDetails(GAME_ONE_ID)}}> {this.state.game1[0]} vs {this.state.game1[2]} </button>
+                <button disabled={this.state.game1[DID_USER_BET_ON_THIS_GAME_INDEX]} onClick={()=>{this.getBetDetails(GAME_ONE_ID)}}> {this.state.game1[HOME_TEAM_INDEX]} vs {this.state.game1[GUEST_TEAM_INDEX]} </button>
                      <br/>
 
                 <div>
-                    <button style={this.state.betChar1==='1'?{color:"lightgreen"}:null} onClick={() => {
-                        this.updateGuestChar('1',GAME_ONE_ID)
+                    <button style={this.state.betChar1===HOME_BET_CHOSE?{color:"lightgreen"}:null} onClick={() => {
+                        this.updateGuestChar(HOME_BET_CHOSE,GAME_ONE_ID)
                     }}>
-                        1: {this.state.game1[1]}
+                        1: {this.state.game1[HOME_TEAM_BET_RATIO_INDEX]}
                     </button>
 
-                    <button style={this.state.betChar1==='x'?{color:"lightgreen"}:null} onClick={() => {
-                        this.updateGuestChar('x',GAME_ONE_ID)
+                    <button style={this.state.betChar1===DRAW_BET_CHOSE?{color:"lightgreen"}:null} onClick={() => {
+                        this.updateGuestChar(DRAW_BET_CHOSE,GAME_ONE_ID)
                     }}>
-                        x: {this.state.game1[4]}
+                        x: {this.state.game1[DRAW_BET_RATIO_INDEX]}
                     </button>
 
-                    <button style={this.state.betChar1==='2'?{color:"lightgreen"}:null} onClick={() => {
-                        this.updateGuestChar('2',GAME_ONE_ID)
+                    <button style={this.state.betChar1===GUEST_BET_CHOSE?{color:"lightgreen"}:null} onClick={() => {
+                        this.updateGuestChar(GUEST_BET_CHOSE,GAME_ONE_ID)
                     }}>
-                        2: {this.state.game1[3]}
+                        2: {this.state.game1[GUEST_TEAM_BET_RATIO_INDEX]}
                     </button>
 
                 </div>
-                <input  disabled={this.state.betChar1==='?'} onChange={this.inputGame1Change}/>
+                <input  disabled={this.state.betChar1===START_DEAFULT_BET} onChange={this.inputGame1Change}/>
                 <div>
-                    <button disabled={this.state.game1[6] || !this.state.betTime} onClick={() => {
-                        this.sendBet(1)
+                    <button disabled={this.state.game1[DID_USER_BET_ON_THIS_GAME_INDEX] || !this.state.betTime} onClick={() => {
+                        this.sendBet(GAME_ONE_CASE)
                     }}>
                         Bet
                     </button>
@@ -503,33 +534,33 @@ class GamesAndBettes extends React.Component {
 
                 {/*----  משחק 2  ----*/}
 
-                <button disabled={this.state.game2[6]} onClick={()=>{this.getBetDetails(GAME_TWO_ID)}}> {this.state.game2[0]} vs {this.state.game2[2]} </button>
+                <button disabled={this.state.game2[DID_USER_BET_ON_THIS_GAME_INDEX]} onClick={()=>{this.getBetDetails(GAME_TWO_ID)}}> {this.state.game2[HOME_TEAM_INDEX]} vs {this.state.game2[GUEST_TEAM_INDEX]} </button>
                 <br/>
 
                 <div>
-                    <button style={this.state.betChar2==='1'?{color:"lightgreen"}:null} onClick={() => {
-                        this.updateGuestChar('1',GAME_TWO_ID)
+                    <button style={this.state.betChar2===HOME_BET_CHOSE?{color:"lightgreen"}:null} onClick={() => {
+                        this.updateGuestChar(HOME_BET_CHOSE,GAME_TWO_ID)
                     }}>
-                        1: {this.state.game2[1]}
+                        1: {this.state.game2[HOME_TEAM_BET_RATIO_INDEX]}
                     </button>
 
-                    <button style={this.state.betChar2==='x'?{color:"lightgreen"}:null} onClick={() => {
-                        this.updateGuestChar('x',GAME_TWO_ID)
+                    <button style={this.state.betChar2===DRAW_BET_CHOSE?{color:"lightgreen"}:null} onClick={() => {
+                        this.updateGuestChar(DRAW_BET_CHOSE,GAME_TWO_ID)
                     }}>
-                        x: {this.state.game2[4]}
+                        x: {this.state.game2[DRAW_BET_RATIO_INDEX]}
                     </button>
 
-                    <button style={this.state.betChar2==='2'?{color:"lightgreen"}:null} onClick={() => {
-                        this.updateGuestChar('2',GAME_TWO_ID)
+                    <button style={this.state.betChar2===GUEST_BET_CHOSE?{color:"lightgreen"}:null} onClick={() => {
+                        this.updateGuestChar(GUEST_BET_CHOSE,GAME_TWO_ID)
                     }}>
-                        2: {this.state.game2[3]}
+                        2: {this.state.game2[GUEST_TEAM_BET_RATIO_INDEX]}
                     </button>
 
                 </div>
-                <input  disabled={this.state.betChar2==='?'} onChange={this.inputGame2Change}/>
+                <input  disabled={this.state.betChar2===START_DEAFULT_BET} onChange={this.inputGame2Change}/>
                 <div>
-                    <button disabled={this.state.game2[6] || !this.state.betTime} onClick={() => {
-                        this.sendBet(2)
+                    <button disabled={this.state.game2[DID_USER_BET_ON_THIS_GAME_INDEX] || !this.state.betTime} onClick={() => {
+                        this.sendBet(GAME_TWO_CASE)
                     }}>
                         Bet
                     </button>
@@ -543,33 +574,33 @@ class GamesAndBettes extends React.Component {
 
                 {/*----  משחק 3 ----*/}
 
-                <button disabled={this.state.game3[6]} onClick={()=>{this.getBetDetails(GAME_THREE_ID)}}> {this.state.game3[0]} vs {this.state.game3[2]} </button>
+                <button disabled={this.state.game3[DID_USER_BET_ON_THIS_GAME_INDEX]} onClick={()=>{this.getBetDetails(GAME_THREE_ID)}}> {this.state.game3[HOME_TEAM_INDEX]} vs {this.state.game3[GUEST_TEAM_INDEX]} </button>
                 <br/>
 
                 <div>
                     <button style={this.state.betChar3==='1'?{color:"lightgreen"}:null} onClick={() => {
                         this.updateGuestChar('1',GAME_THREE_ID)
                     }}>
-                        1: {this.state.game3[1]}
+                        1: {this.state.game3[HOME_TEAM_BET_RATIO_INDEX]}
                     </button>
 
-                    <button style={this.state.betChar3==='x'?{color:"lightgreen"}:null} onClick={() => {
-                        this.updateGuestChar('x',GAME_THREE_ID)
+                    <button style={this.state.betChar3===DRAW_BET_CHOSE?{color:"lightgreen"}:null} onClick={() => {
+                        this.updateGuestChar(DRAW_BET_CHOSE,GAME_THREE_ID)
                     }}>
-                        x: {this.state.game3[4]}
+                        x: {this.state.game3[DRAW_BET_RATIO_INDEX]}
                     </button>
 
-                    <button style={this.state.betChar3==='2'?{color:"lightgreen"}:null} onClick={() => {
-                        this.updateGuestChar('2',GAME_THREE_ID)
+                    <button style={this.state.betChar3===GUEST_BET_CHOSE?{color:"lightgreen"}:null} onClick={() => {
+                        this.updateGuestChar(GUEST_BET_CHOSE,GAME_THREE_ID)
                     }}>
-                        2: {this.state.game3[3]}
+                        2: {this.state.game3[GUEST_TEAM_BET_RATIO_INDEX]}
                     </button>
 
                 </div>
                 <input  disabled={this.state.betChar3==='?'} onChange={this.inputGame3Change}/>
                 <div>
-                    <button disabled={this.state.game3[6] || !this.state.betTime} onClick={() => {
-                        this.sendBet(3)
+                    <button disabled={this.state.game3[DID_USER_BET_ON_THIS_GAME_INDEX] || !this.state.betTime} onClick={() => {
+                        this.sendBet(GAME_THREE_CASE)
                     }}>
                         Bet
                     </button>
@@ -583,33 +614,33 @@ class GamesAndBettes extends React.Component {
 
                 {/*----  משחק 4  ----*/}
 
-                <button disabled={this.state.game4[6]} onClick={()=>{this.getBetDetails(GAME_FOUR_ID)}}> {this.state.game4[0]} vs {this.state.game4[2]} </button>
+                <button disabled={this.state.game4[DID_USER_BET_ON_THIS_GAME_INDEX]} onClick={()=>{this.getBetDetails(GAME_FOUR_ID)}}> {this.state.game4[HOME_TEAM_INDEX]} vs {this.state.game4[GUEST_TEAM_INDEX]} </button>
                 <br/>
 
                 <div>
-                    <button style={this.state.betChar4==='1'?{color:"lightgreen"}:null} onClick={() => {
-                        this.updateGuestChar('1',GAME_FOUR_ID)
+                    <button style={this.state.betChar4===HOME_BET_CHOSE?{color:"lightgreen"}:null} onClick={() => {
+                        this.updateGuestChar(HOME_BET_CHOSE,GAME_FOUR_ID)
                     }}>
-                        1: {this.state.game4[1]}
+                        1: {this.state.game4[HOME_TEAM_BET_RATIO_INDEX]}
                     </button>
 
-                    <button style={this.state.betChar4==='x'?{color:"lightgreen"}:null} onClick={() => {
-                        this.updateGuestChar('x',GAME_FOUR_ID)
+                    <button style={this.state.betChar4===DRAW_BET_CHOSE?{color:"lightgreen"}:null} onClick={() => {
+                        this.updateGuestChar(DRAW_BET_CHOSE,GAME_FOUR_ID)
                     }}>
-                        x: {this.state.game4[4]}
+                        x: {this.state.game4[DRAW_BET_RATIO_INDEX]}
                     </button>
 
-                    <button style={this.state.betChar4==='2'?{color:"lightgreen"}:null} onClick={() => {
-                        this.updateGuestChar('2',GAME_FOUR_ID)
+                    <button style={this.state.betChar4===GUEST_BET_CHOSE?{color:"lightgreen"}:null} onClick={() => {
+                        this.updateGuestChar(GUEST_BET_CHOSE,GAME_FOUR_ID)
                     }}>
-                        2: {this.state.game4[3]}
+                        2: {this.state.game4[GUEST_TEAM_BET_RATIO_INDEX]}
                     </button>
 
                 </div>
-                <input  disabled={this.state.betChar4==='?'} onChange={this.inputGame4Change}/>
+                <input  disabled={this.state.betChar4===START_DEAFULT_BET} onChange={this.inputGame4Change}/>
                 <div>
-                    <button disabled={this.state.game4[6] || !this.state.betTime } onClick={() => {
-                        this.sendBet(4)
+                    <button disabled={this.state.game4[DID_USER_BET_ON_THIS_GAME_INDEX] || !this.state.betTime } onClick={() => {
+                        this.sendBet(DRAW_BET_RATIO_INDEX)
                     }}>
                         Bet
                     </button>
