@@ -517,7 +517,7 @@ debugger
                     </button>
 
                 </div>
-                <input  disabled={this.state.betChar1===START_DEAFULT_BET} onChange={this.inputGame1Change}/>
+                <input value={this.state.game1[BET_VALUE_INDEX]} disabled={this.state.betChar1===START_DEAFULT_BET} onChange={this.inputGame1Change}/>
                 <div>
                     <button disabled={this.state.game1[DID_USER_BET_ON_THIS_GAME_INDEX] || !this.state.betTime} onClick={() => {
                         this.sendBet(GAME_ONE_CASE)
@@ -557,7 +557,7 @@ debugger
                     </button>
 
                 </div>
-                <input  disabled={this.state.betChar2===START_DEAFULT_BET} onChange={this.inputGame2Change}/>
+                <input value={this.state.game2[BET_VALUE_INDEX]} disabled={this.state.betChar2===START_DEAFULT_BET} onChange={this.inputGame2Change}/>
                 <div>
                     <button disabled={this.state.game2[DID_USER_BET_ON_THIS_GAME_INDEX] || !this.state.betTime} onClick={() => {
                         this.sendBet(GAME_TWO_CASE)
@@ -597,7 +597,7 @@ debugger
                     </button>
 
                 </div>
-                <input  disabled={this.state.betChar3==='?'} onChange={this.inputGame3Change}/>
+                <input value={this.state.game3[BET_VALUE_INDEX]} disabled={this.state.betChar3==='?'} onChange={this.inputGame3Change}/>
                 <div>
                     <button disabled={this.state.game3[DID_USER_BET_ON_THIS_GAME_INDEX] || !this.state.betTime} onClick={() => {
                         this.sendBet(GAME_THREE_CASE)
@@ -637,7 +637,7 @@ debugger
                     </button>
 
                 </div>
-                <input  disabled={this.state.betChar4===START_DEAFULT_BET} onChange={this.inputGame4Change}/>
+                <input value={this.state.game4[BET_VALUE_INDEX]} disabled={this.state.betChar4===START_DEAFULT_BET} onChange={this.inputGame4Change}/>
                 <div>
                     <button disabled={this.state.game4[DID_USER_BET_ON_THIS_GAME_INDEX] || !this.state.betTime } onClick={() => {
                         this.sendBet(DRAW_BET_RATIO_INDEX)
@@ -649,6 +649,13 @@ debugger
                     {this.state.betTime ? "make your bet" : "game is running"}
                     <br/>
                     {this.state.massageFromServer4}
+                </div>
+                <div>
+                    <button  onClick={() => {
+                        window.open("http://localhost:3000/update_user_details", "_blank");
+                    }}>
+                        Update personal details
+                    </button>
                 </div>
                 <button style={{background:"green"}} onClick={()=>{this.startSeason()}}>
                    admin: start season

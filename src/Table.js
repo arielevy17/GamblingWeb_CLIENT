@@ -175,6 +175,14 @@ class Table extends React.Component {
                     </tbody>
                 </table>
 
+                <div>
+                    <button onClick={() => {
+                        window.open("http://localhost:3000/update_user_details", "_blank");
+                    }}>
+                        Update personal details
+                    </button>
+                </div>
+
             </div>
         );
     }

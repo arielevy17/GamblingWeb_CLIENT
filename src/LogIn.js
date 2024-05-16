@@ -2,7 +2,7 @@ import './App.css';
 import React from "react";
 import axios from "axios";
 import {BrowserRouter,Routes,Route,NavLink} from "react-router-dom";
-
+const PASSWORD_LENGTH= 9;
 
 
 
@@ -23,7 +23,7 @@ class Login extends React.Component {
     }
     passwordValidation=(password)=>{
         let ans=false;
-        if ((password.length>=9)){ // הוספת תנאי מכיל מספר ואות TODO:
+        if ((password.length>=PASSWORD_LENGTH)){
             ans=true;
         }
         return ans;

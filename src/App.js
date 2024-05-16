@@ -7,6 +7,7 @@ import LogIn from "./LogIn";
 import SingUp from "./SingUp";
 import GamesAndBettes from "./GamesAndBettes";
 import Table from "./Table";
+import UpdateUserDetails from "./UpdateUserDetails";
 
 
 
@@ -29,6 +30,7 @@ class App extends React.Component {
                             <Route path={"/sing_up_page"} element={<SingUp/>}/>
                             <Route path={"/league_table"} element={<Table/>}/>
                             <Route path={"/games_and_bettes"} element={<GamesAndBettes/>}/>
+                            <Route path={"/update_user_details"} element={<UpdateUserDetails/>}/>
                         </Routes>
                     </BrowserRouter>
                     <button onClick={() => {
