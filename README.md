@@ -5,5 +5,5 @@ Slots the teams into games and gives the user the option to bet on the team he w
 Runs the game by a probability algorithm for a goal in every given minute of play. 
 Publishes the result, and according to the bet the user updates his financial account in the database.
 
-** The server side of the site! **
+** The client side of the site! **
 The technologie used: React.js 
